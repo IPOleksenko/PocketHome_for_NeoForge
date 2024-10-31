@@ -1,5 +1,6 @@
 package dev.ipoleksenko.pockethome;
 
+import dev.ipoleksenko.pockethome.event.BlockBreakSyncHandler;
 import dev.ipoleksenko.pockethome.event.ChestInteractEvent;
 import dev.ipoleksenko.pockethome.event.PlayerJoinEvent;
 
@@ -21,5 +22,6 @@ public class PocketHome {
     public PocketHome(IEventBus modEventBus, ModContainer modContainer) {
         NeoForge.EVENT_BUS.register(new ChestInteractEvent());
         NeoForge.EVENT_BUS.register(new PlayerJoinEvent());
+        NeoForge.EVENT_BUS.register(new BlockBreakSyncHandler());
     }
 }
