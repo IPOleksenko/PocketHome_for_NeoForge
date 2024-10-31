@@ -1,4 +1,4 @@
-package dev.ipoleksenko.pockethome;
+package dev.ipoleksenko.pockethome.world;
 
 import dev.ipoleksenko.pockethome.mixin.MinecraftServerAccess;
 import dev.ipoleksenko.pockethome.world.RuntimeWorld;
