@@ -41,8 +41,11 @@ public class ChestInteractEvent {
         var customWorld = runtimeWorldManager.getOrCreate(ResourceLocation.fromNamespaceAndPath(MODID, player.getStringUUID()));
 
         if (player instanceof ServerPlayer serverPlayer) {
-            // Check if the player is in the overworld
-            if (serverPlayer.level().dimension().equals(Level.OVERWORLD)) {
+            // Check if the player is in the custom world
+            if (serverPlayer.level().dimension().equals(customWorld.dimension())) {
+                // If the player is already in the custom world, teleport them back to the overworld
+                serverPlayer.teleportTo(serverPlayer.getServer().getLevel(Level.OVERWORLD), 8.0, 100.0, 8.0, RelativeMovement.ROTATION, 0.0f, 0.0f);
+            } else if (serverPlayer.level().dimension().equals(Level.OVERWORLD)) {
                 PlatformGenerator.generateBedrockPlatform(customWorld, new BlockPos(-32, 0, -32));
                 // If the player is entering the world for the first time, generate the platform
                 if (playersWhoEnteredWorld.add(player.getStringUUID())) {
@@ -50,9 +53,6 @@ public class ChestInteractEvent {
                 }
                 // Teleport the player to the custom world
                 serverPlayer.teleportTo(customWorld, 8.0, 10.0, 8.0, RelativeMovement.ROTATION, 0.0f, 0.0f);
-            } else if (serverPlayer.level().dimension().equals(customWorld.dimension())) {
-                // If the player is already in the custom world, teleport them back to the overworld
-                serverPlayer.teleportTo(serverPlayer.getServer().getLevel(Level.OVERWORLD), 8.0, 100.0, 8.0, RelativeMovement.ROTATION, 0.0f, 0.0f);
             }
         }
 
